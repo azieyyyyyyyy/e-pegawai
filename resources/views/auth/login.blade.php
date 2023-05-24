@@ -186,14 +186,6 @@ Auto
 <form method="POST" action="{{ route('login.authenticate') }}">
     @csrf
 
-    @auth
-    // The user is authenticated...
-@endauth
-
-@guest
-    // The user is not authenticated...
-@endguest
-
 
 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 

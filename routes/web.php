@@ -30,6 +30,8 @@ Route::post('login', [LoginController::class, 'authenticate'])->name('login.auth
 Route::middleware('auth')->group(function() {
 Route::get('dashboard', DashboardController::class)->name('dashboard');
 
+Route::resource('user', UserController::class)->middleware('check.admin');
+
 });
 
 //CRUD manually
