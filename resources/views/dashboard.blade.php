@@ -11,25 +11,37 @@
     <div class="container">
         <h1>Dashboard</h1>
 
-        @include('components.card',
-        ['title' => 'Tajuk Component Card',
-        'slot' => 'Kontent Component Card'])
-
-        @component('components.card',
-        ['title' => 'Tajuk Component Card',
+        {{-- @include('components.card', [
+            'title' => 'Tajuk Component Card Include',
+            'slot' => 'Kontent Component Card Include'
         ])
-            Konten Component Card
+
+        <hr>
+
+        @component('components.card', [
+            'title' => 'Tajuk Component Card',
+        ])
+
+        Konten Component Card
 
         @endcomponent
 
         <hr>
-            <x-card title="Tajuk Component X-">
-                Konten Component Card
-            </x-card>
 
-            <hr>
+        <x-card title="Tajuk Component X-">
+            Konten Component Card menerusi X-
+        </x-card> --}}
 
-        <x-alert type="primary" :message="$message" />
+        {{-- <hr> --}}
+
+
+        <x-alert type="$type" :message="$message" />
+
+        <hr>
+
+        <a href="{{ route('users.index') }}" class="btn btn-primary">
+            Urus Pengguna Sistem
+        </a>
 
         <p>
         Has

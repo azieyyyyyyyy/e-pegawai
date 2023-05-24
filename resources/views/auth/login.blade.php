@@ -186,6 +186,8 @@ Auto
 <form method="POST" action="{{ route('login.authenticate') }}">
     @csrf
 
+    @guest
+        <h1 class="h3 mb-3 fw-normal">Sila login. Anda belum login</h1>
 
 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -205,6 +207,17 @@ Auto
 </div>
 <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 </form>
+
+@else
+
+<h1 class="h3 mb-3 fw-normal">Anda sudah login</h1>
+
+<a href="{{ route('dashboard') }}" class="btn btn-primary">
+    Klik di sini untuk ke dashboard
+</a>
+
+@endguest
+
 </main>
 
 </body>

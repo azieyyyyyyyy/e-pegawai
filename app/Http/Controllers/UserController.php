@@ -68,7 +68,7 @@ class UserController extends Controller
         // Final response. redirect ke senarai users
         return redirect()->route('users.index')
         ->with('type', 'success')
-        ->with('message', 'Rekod berjaya ditambah!');
+        ->with('message', 'Rekod Berjaya Ditambah!');
     }
 
     /**

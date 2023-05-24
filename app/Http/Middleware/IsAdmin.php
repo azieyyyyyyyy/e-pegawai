@@ -16,11 +16,11 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()->isAdmin())
+        if (auth()->user()->role != User::ROLE_ADMIN)
         {
             return redirect()->route('dashboard')
             ->with('type', 'danger')
-            ->with('message', 'Anda tidak mempunyai kebenaran untuk membuka halaman ini');
+            ->with('message', 'Anda tidak mempunyai kebenaran untuk membuka halaman admin');
         }
 
         return $next($request);
