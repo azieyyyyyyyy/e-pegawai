@@ -1,7 +1,7 @@
 @extends('layouts.induk')
 
 @section('content')
-<h1>Senarai Articles</h1>
+<h1>Senarai Artikel</h1>
 
 <x-alert :type="$type" :message="$message" />
 
@@ -19,13 +19,13 @@
         <col class="col-2">
     </colgroup>
     <thead>
-        <tr>
-            <th>BIL</th>
-            <th>ARTIKEL ID</th>
+        <tr align="center">
+            <th>NO</th>
+            <th>ARTICLE ID</th>
             <th>USER ID</th>
-            <th>TAJUK</th>
+            <th>TITLE</th>
             <th>STATUS</th>
-            <th>TINDAKAN</th>
+            <th>ACTION</th>
         </tr>
     </thead>
     <tbody>
@@ -37,9 +37,17 @@
             <td>{{ $article->tajuk }}</td>
             <td>{{ $article->status }}</td>
             <td>
+                <a href="{{ route('articles.show', $article->id) }}" class="btn btn-primary">
+                    View
+                </a>
+
+                @can('update', $article)
                 <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-info">
                     Edit
                 </a>
+                @endcan
+
+                @can('delete', $article)
                 <form method="POST" action="{{ route('articles.destroy', $article->id) }}">
                     @csrf
                     @method('DELETE')
@@ -47,6 +55,7 @@
                         Delete
                     </button>
                 </form>
+                @endcan
             </td>
         </tr>
 

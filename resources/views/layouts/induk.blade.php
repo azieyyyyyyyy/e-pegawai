@@ -146,6 +146,7 @@
     @include('layouts.navbar')
 
     <main class="container">
+        <p>Selamat Datang {{ auth()->user()->nama}} </p>
 
     @include('layouts.alerts')
 
