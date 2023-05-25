@@ -2,10 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Policy;
+use App\Models\Article;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-use App\Models\Article;
 
 class ArticlePolicy
 {
@@ -36,7 +35,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Policy $policy): bool
+    public function update(User $user, Article $article): bool
     {
         //
     }
@@ -44,7 +43,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Policy $policy): bool
+    public function delete(User $user, Article $article): bool
     {
         //
     }
@@ -52,7 +51,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Policy $policy): bool
+    public function restore(User $user, Article $article): bool
     {
         //
     }
@@ -60,7 +59,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Policy $policy): bool
+    public function forceDelete(User $user, Article $article): bool
     {
         //
     }

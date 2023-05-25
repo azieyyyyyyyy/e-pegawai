@@ -3,43 +3,37 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     /**
-     * Show the login form.
-     *
-     * @return \Illuminate\View\View
+     * Handle an authentication attempt.
      */
-    public function showLoginForm()
+    public function authenticate(Request $request): RedirectResponse
     {
-        return view('auth.login');
-    }
-
-    /**
-     * Handle the login request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function authenticate(Request $request)
-    {
-        // Validate the login form data
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Attempt to authenticate the user
-        if (auth()->attempt($credentials)) {
-            // Authentication successful
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
             return redirect()->intended('dashboard');
         }
 
-        // Authentication failed
-        return redirect()->back()->withErrors([
-            'email' => 'Invalid credentials.',
-        ]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+
+    public function logout ()
+    {
+        Auth::logout();
+
+        return redirect()->route('login');
     }
 }

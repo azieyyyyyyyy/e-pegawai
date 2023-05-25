@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
-use Illuminate\Auth\Middleware\Authorize;
 
 class ArticleController extends Controller
 {
@@ -61,11 +60,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-       // if (auth()->id() !=$article->user_id)
-       // {
-         //   abort(401);
+        // if (auth()->id() != $article->user_id)
+        // {
+        //     abort(401);
         // }
-
         $this->authorize('view', $article);
 
         return view('articles.edit', compact('article'));
