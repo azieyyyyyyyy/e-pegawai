@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -45,17 +47,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    //status
+    // Status
     public const STATUS_ACTIVE = 'active';
     public const STATUS_INACTIVE = 'inactive';
     public const STATUS_BANNED = 'banned';
 
-    //role
+    // Role
     public const ROLE_ADMIN = 'admin';
     public const ROLE_USER = 'user';
 
-    //dropdown status
-    public static function senaraiStatus ()
+    // Dropdown Status
+    public static function senaraiStatus()
     {
         return [
             self::STATUS_ACTIVE => ucwords(self::STATUS_ACTIVE),
@@ -64,8 +66,8 @@ class User extends Authenticatable
         ];
     }
 
-    //dropdown Role
-    public static function senaraiRole ()
+    // Dropdown Role
+    public static function senaraiRole()
     {
         return [
             self::ROLE_ADMIN => ucwords(self::ROLE_ADMIN),
@@ -75,24 +77,36 @@ class User extends Authenticatable
 
     public static function ruleStatus()
     {
-        $rule = self::STATUS_ACTIVE;
-        $rule .= ',' . self::STATUS_INACTIVE;
-        $rule .= ',' . self::STATUS_BANNED;
+        $rules = self::STATUS_ACTIVE;
+        $rules .= ',' . self::STATUS_INACTIVE;
+        $rules .= ',' . self::STATUS_BANNED;
 
-        return $rule; //active,inactive,banned
+        return $rules; // active,inactive,banned
     }
 
     public static function ruleRole()
     {
-        $role = self::ROLE_ADMIN;
-        $role .= ',' . self::ROLE_USER;
+        $roles = self::ROLE_ADMIN;
+        $roles .= ',' . self::ROLE_USER;
 
-        return $role; //admin,other user
+        return $roles; // admin,user
     }
 
-    public static function isAdmin()
+    public function isAdmin()
     {
+        if (auth()->user()->role == User::ROLE_ADMIN)
+        {
+            return true;
+        }
 
+        return false;
+    }
 
+    // Mutator auto encrypt password
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn(string $value) => bcrypt($value),
+        );
     }
 }

@@ -38,7 +38,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 // Bahagian pengurusan / admin
-Route::resource('users', UserController::class)->middleware('check.admin');
+//Route::resource('users', UserController::class)->middleware('check.admin');
 
 });
 
